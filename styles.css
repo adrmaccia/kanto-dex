@@ -1,0 +1,47 @@
+* {
+  box-sizing: border-box;
+}
+
+/* Pokemon Image Styles */
+
+.pokemonContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.pokemonIcon {
+  width: 100px;
+}
+
+.pokemonName {
+  margin-bottom: 0;
+}
+
+.pokemonImage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 30px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+}
+
+/* TCG styles */
+
+.tcgContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.tcgDiv {
+  margin: 10px;
+}
+
+.pokemonTcg {
+  width: 200px;
+  height: auto;
+}
