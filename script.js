@@ -1,4 +1,7 @@
 const body = document.querySelector('body');
+const back = document.querySelector('#back');
+
+// Pokemon Image API
 
 const pokemonContainer = document.createElement('div');
 pokemonContainer.className = 'pokemonContainer';
@@ -20,20 +23,30 @@ async function getPokemon() {
 
     pokemonContainer.append(pokemonImage);
 
+    pokemonImage.addEventListener('click', () => {
+      pokemonName = pokemon.name;
+
+      getPokemonCard(pokemonName);
+    });
+
     maxPokemon++;
   }
 }
 
 getPokemon();
 
+// TCG API
+
 const tcgContainer = document.createElement('div');
 tcgContainer.className = 'tcgContainer';
 body.append(tcgContainer);
 
-async function getPokemonCard() {
-  const res = await fetch('https://api.pokemontcg.io/v2/cards?q=name:bulbasaur');
+async function getPokemonCard(pokemonName) {
+  const res = await fetch(`https://api.pokemontcg.io/v2/cards?q=name:${pokemonName}`);
   const pokemonCard = await res.json();
   const pkmnCard = pokemonCard.data;
+
+  tcgContainer.innerHTML = '';
 
   pkmnCard.forEach((card) => {
     const tcgDiv = document.createElement('div');
@@ -42,5 +55,3 @@ async function getPokemonCard() {
     tcgContainer.append(tcgDiv);
   });
 }
-
-getPokemonCard();
