@@ -1,25 +1,23 @@
 * {
+  margin: 0;
+
   box-sizing: border-box;
 }
 
 /* Pokemon Image Styles */
 
-.pokemonContainer {
+.pkmnContainer {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
 }
 
-.pokemonIcon {
+.sprite {
   width: 100px;
 }
 
-.pokemonName {
-  margin-bottom: 0;
-}
-
-.pokemonImage {
+.allSprites {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -31,17 +29,13 @@
 
 /* TCG styles */
 
-.tcgContainer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.tcgDiv {
+.cards {
   margin: 10px;
 }
 
-.pokemonTcg {
-  width: 200px;
+/* Individual Cards */
+
+.card {
+  width: 350px;
   height: auto;
 }

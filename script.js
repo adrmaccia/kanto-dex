@@ -2,56 +2,70 @@ const body = document.querySelector('body');
 const back = document.querySelector('#back');
 
 // Pokemon Image API
-
-const pokemonContainer = document.createElement('div');
-pokemonContainer.className = 'pokemonContainer';
-body.append(pokemonContainer);
+const pkmnContainer = document.createElement('div');
+pkmnContainer.className = 'pkmnContainer';
+body.append(pkmnContainer);
 
 async function getPokemon() {
-  let maxPokemon = 1;
+  pkmnContainer.innerHTML = '';
 
-  while (maxPokemon <= 5) {
-    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${maxPokemon}`);
+  let firstIndex = 1;
+  let lastIndex = 6;
+
+  while (firstIndex <= lastIndex) {
+    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${firstIndex}`);
     const pokemon = await res.json();
-    const pkmnImage = pokemon.sprites.other['official-artwork'].front_default;
+    const sprite = pokemon.sprites.other['official-artwork'].front_default;
 
-    const pokemonImage = document.createElement('div');
-    pokemonImage.className = 'pokemonImage';
+    const allSprites = document.createElement('div');
+    allSprites.className = 'allSprites';
+    allSprites.innerHTML = `<img class="sprite" src="${sprite}">
+                     <p class="pkmnName">${pokemon.id}.${pokemon.name}</p>`;
+    pkmnContainer.append(allSprites);
 
-    pokemonImage.innerHTML = `<img class="pokemonIcon" src="${pkmnImage}">              
-                              <p class="pokemonName">${pokemon.id}.${pokemon.name}</p>`;
-
-    pokemonContainer.append(pokemonImage);
-
-    pokemonImage.addEventListener('click', () => {
+    allSprites.addEventListener('click', () => {
       pokemonName = pokemon.name;
-
       getPokemonCard(pokemonName);
     });
 
-    maxPokemon++;
+    firstIndex++;
   }
 }
 
 getPokemon();
 
-// TCG API
-
-const tcgContainer = document.createElement('div');
-tcgContainer.className = 'tcgContainer';
-body.append(tcgContainer);
-
+// List of pokemon TCG
 async function getPokemonCard(pokemonName) {
   const res = await fetch(`https://api.pokemontcg.io/v2/cards?q=name:${pokemonName}`);
-  const pokemonCard = await res.json();
-  const pkmnCard = pokemonCard.data;
+  const pokemonTcg = await res.json();
+  const pokemonCard = pokemonTcg.data;
+  // console.log(pokemonTcg.data[0]);
 
-  tcgContainer.innerHTML = '';
+  pkmnContainer.innerHTML = '';
 
-  pkmnCard.forEach((card) => {
-    const tcgDiv = document.createElement('div');
-    tcgDiv.className = 'tcgDiv';
-    tcgDiv.innerHTML = `<img class="pokemonTcg" src="${card.images.small}">`;
-    tcgContainer.append(tcgDiv);
+  pokemonCard.forEach((card, index) => {
+    const cards = document.createElement('div');
+    cards.className = 'cards';
+    cards.innerHTML = `<img id="${index}" src="${card.images.small}">`;
+    pkmnContainer.append(cards);
+
+    cards.addEventListener('click', () => {
+      const cardId = pokemonTcg.data[index];
+      getCardDetails(cardId);
+    });
   });
+}
+
+back.addEventListener('click', () => {
+  getPokemon();
+});
+
+// Individual Card
+function getCardDetails(card) {
+  pkmnContainer.innerHTML = '';
+
+  const cardDetails = document.createElement('div');
+  cardDetails.className = 'cardDetails';
+  cardDetails.innerHTML = `<img class="card" src=${card.images.large}>`;
+  pkmnContainer.append(cardDetails);
 }
