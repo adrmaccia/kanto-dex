@@ -1,7 +1,23 @@
 * {
   margin: 0;
-
   box-sizing: border-box;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 250px;
+  background-color: #b22c2c;
+}
+
+.logo {
+  width: 450px;
+}
+
+form {
+  margin: 10px;
 }
 
 /* Pokemon Image Styles */
@@ -10,6 +26,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin: 20px 200px;
   gap: 10px;
 }
 
@@ -38,4 +55,8 @@
 .card {
   width: 350px;
   height: auto;
+}
+
+.cardDetails {
+  display: flex;
 }
