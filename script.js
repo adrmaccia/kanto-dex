@@ -1,27 +1,44 @@
 const body = document.querySelector('body');
 const back = document.querySelector('#back');
 
+let upperCaseName;
+
 // Pokemon Image API
+const content = document.createElement('div');
+content.className = 'content';
+body.append(content);
+
 const pkmnContainer = document.createElement('div');
 pkmnContainer.className = 'pkmnContainer';
-body.append(pkmnContainer);
+
+const generationTitle = document.createElement('div');
+generationTitle.className = 'generationTitle';
+generationTitle.innerHTML = 'Generation 1';
 
 async function getPokemon() {
-  pkmnContainer.innerHTML = '';
+  content.innerHTML = '';
+  content.append(generationTitle, pkmnContainer);
 
   let firstIndex = 1;
-  let lastIndex = 30;
+  let lastIndex = 12;
 
   while (firstIndex <= lastIndex) {
     const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${firstIndex}`);
     const pokemon = await res.json();
     const sprite = pokemon.sprites.other['official-artwork'].front_default;
 
+    // removes first letter, slice index 1 onwards
+    upperCaseName = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
+
+    const pokemonId = pokemon.id < 10 ? `#00${pokemon.id}` : `#0${pokemon.id}`;
+
     const allSprites = document.createElement('div');
     allSprites.className = 'allSprites';
-    allSprites.innerHTML = `<img class="sprite" src="${sprite}">
-                            <p class="pkmnId">${pokemon.id}.</p>
-                            <p class="pkmnName">${pokemon.name}</p>`;
+    allSprites.innerHTML = ` <img class="sprite" src="${sprite}">
+                             <div class="spriteInfo">
+                                <p class="pkmnId">${pokemonId}</p>
+                                <p class="pkmnName">${upperCaseName}</p>
+                             </div>`;
     pkmnContainer.append(allSprites);
 
     allSprites.addEventListener('click', () => {
@@ -41,13 +58,19 @@ async function getPokemonCard(pokemonName) {
   const pokemonTcg = await res.json();
   const pokemonCard = pokemonTcg.data;
 
+  generationTitle.innerHTML = `Viewing ${upperCaseName}'s cards`;
   pkmnContainer.innerHTML = '';
 
   pokemonCard.forEach((card, index) => {
+    const avgPrice = card.cardmarket.prices.averageSellPrice;
+    const trendPrice = card.cardmarket.prices.trendPrice;
+
+    console.log(trendPrice, avgPrice);
+
     const cards = document.createElement('div');
     cards.className = 'cards';
     cards.innerHTML = `<img id="${index}" src="${card.images.small}">
-                       <p>Avg Price : $${card.cardmarket.prices.averageSellPrice}`;
+                       <p class="bestPrice">Best Price $${card.cardmarket.prices.lowPrice}`;
     pkmnContainer.append(cards);
 
     cards.addEventListener('click', () => {
@@ -57,40 +80,51 @@ async function getPokemonCard(pokemonName) {
   });
 }
 
-back.addEventListener('click', () => {
-  getPokemon();
-});
+// back.addEventListener('click', () => {
+//   getPokemon();
+// });
 
 // Individual Card
 function getCardDetails(card) {
   pkmnContainer.innerHTML = '';
   console.log(card);
 
-  const cardDetails = document.createElement('div');
-  cardDetails.className = 'cardDetails';
-  cardDetails.innerHTML = `<img class="card" src=${card.images.large}>
-                           <div>
-                              <p>${card.name}</p>
+  const pkmnCard = document.createElement('div');
+  pkmnCard.className = 'pkmnCard';
+  pkmnCard.innerHTML = `<img class="card" src=${card.images.large}>
+                           <div class="cardDetails">
+                              <p class="name">${card.name}</p>
                               <p>${
                                 card.evolvesFrom !== undefined
                                   ? 'Evolves from: ' + card.evolvesFrom
                                   : ''
                               }</p>
-                              <p>Set: ${card.set.name}</p>
-                              <p>Release: ${card.set.releaseDate}</p>
-                              <p>series: ${card.set.series}</p>
-                              <p>Arist: ${card.artist}</p>
+                              <div class="details">
+                                <div class="leftContainer">
+                                  <p>Set</p>
+                                  <p>Release</p>
+                                  <p>Series</p>
+                                  <p>Artist</p>
+                                  <p>Listing Details</p>
+                                  <p>Average Sell</p>
+                                  <p>Price Trend</p>
+                                </div>
+                                <div class="rightContainer">
+                                  <p>${card.set.name}</p>
+                                  <p>${card.set.releaseDate}</p>
+                                  <p>${card.set.series}</p>
+                                  <p>${card.artist}</p>
+                                  <br>
+                                  <p>${card.cardmarket.prices.averageSellPrice}</p>
+                                  <p>${card.cardmarket.prices.trendPrice}</p>
+                                </div>
+                              </div>
                               <div>
-                                <p>Listings</p>
-                                <p>Average sell ${card.cardmarket.prices.averageSellPrice}</p>
-                                <p>Price Trend ${card.cardmarket.prices.trendPrice}</p>
-                                <p></p>
                                 <p>${card.flavorText !== undefined ? card.flavorText : ''}</p>
                               </div>
                            </div>`;
-  pkmnContainer.append(cardDetails);
+  content.append(pkmnCard);
 }
-
 // Search Pokemon Card
 const search = document.querySelector('form');
 
@@ -99,18 +133,63 @@ search.addEventListener('submit', (e) => {
   const searchValue = document.querySelector('input[type="text"]').value;
   getPokemonCard(searchValue);
 
-  // Clear the input field after submission
   document.querySelector('input[type="text"]').value = '';
 });
 
-// TEMP
-// getPokemonCard('charizard');
+// const body = document.querySelector('body');
+// const back = document.querySelector('#back');
+// const content = document.createElement('div');
+// content.className = 'content';
+// body.append(content);
 
+// // Individual Card
+// function getCardDetails(card) {
+//   content.innerHTML = '';
+//   console.log(card);
+
+//   const pkmnCard = document.createElement('div');
+//   pkmnCard.className = 'pkmnCard';
+//   pkmnCard.innerHTML = `<img class="card" src=${card.images.large}>
+//                            <div class="cardDetails">
+//                               <p class="name">${card.name}</p>
+//                               <p>${
+//                                 card.evolvesFrom !== undefined
+//                                   ? 'Evolves from: ' + card.evolvesFrom
+//                                   : ''
+//                               }</p>
+//                               <div class="details">
+//                                 <div class="leftContainer">
+//                                   <p>Set</p>
+//                                   <p>Release</p>
+//                                   <p>Series</p>
+//                                   <p>Artist</p>
+//                                   <p>Listing Details</p>
+//                                   <p>Average Sell</p>
+//                                   <p>Price Trend</p>
+//                                 </div>
+//                                 <div class="rightContainer">
+//                                   <p>${card.set.name}</p>
+//                                   <p>${card.set.releaseDate}</p>
+//                                   <p>${card.set.series}</p>
+//                                   <p>${card.artist}</p>
+//                                   <br>
+//                                   <p>${card.cardmarket.prices.averageSellPrice}</p>
+//                                   <p>${card.cardmarket.prices.trendPrice}</p>
+//                                 </div>
+//                               </div>
+//                               <div>
+//                                 <p>${card.flavorText !== undefined ? card.flavorText : ''}</p>
+//                               </div>
+//                            </div>`;
+//   content.append(pkmnCard);
+// }
+
+// // TEMP
 // async function tempCard() {
 //   const res = await fetch(`https://api.pokemontcg.io/v2/cards?q=name:charizard`);
 //   const pokemonTcg = await res.json();
-//   const bulbasaurCard = pokemonTcg.data[6];
-//   getCardDetails(bulbasaurCard);
+//   const charizardCard = pokemonTcg.data[6];
+//   getCardDetails(charizardCard);
 // }
 
 // tempCard();

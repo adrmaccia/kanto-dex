@@ -1,6 +1,11 @@
 * {
   margin: 0;
   box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  background-color: rgba(128, 128, 128, 0.195);
 }
 
 header {
@@ -8,26 +13,37 @@ header {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 250px;
+  height: 200px;
   background-color: #b22c2c;
 }
 
 .logo {
-  width: 450px;
-}
-
-form {
-  margin: 10px;
+  width: 350px;
 }
 
 /* Pokemon Image Styles */
 
-.pkmnContainer {
+.content {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: 20px 200px;
-  gap: 10px;
+  flex-direction: column;
+  background-color: white;
+  margin: 30px 200px 30px 200px;
+  padding: 25px;
+  border-radius: 10px;
+}
+
+.generationTitle {
+  display: flex;
+  font-size: 30px;
+  font-weight: 600;
+}
+
+/* Grabbed grid style from chatgpt, issue aligning the last row with uneven amount of divs using flex & justify space between */
+.pkmnContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  margin-top: 30px;
 }
 
 .sprite {
@@ -37,17 +53,48 @@ form {
 .allSprites {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  padding: 20px 30px;
+  padding: 15px 30px;
   border: 1px solid rgba(0, 0, 0, 0.5);
   border-radius: 10px;
+}
+
+.spriteInfo {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 5px;
+  gap: 3px;
+}
+
+.pkmnId {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.allSprites:hover {
+  background-color: rgba(128, 128, 128, 0.098);
 }
 
 /* TCG styles */
 
 .cards {
-  margin: 10px;
+  width: 200px;
+  margin-bottom: 20px;
+}
+
+.cards img {
+  width: 100%;
+}
+
+.cards:hover {
+  transform: scale(1.03);
+}
+
+.bestPrice {
+  margin-top: 5px;
+  text-align: center;
+  font-size: 15px;
 }
 
 /* Individual Cards */
@@ -57,6 +104,23 @@ form {
   height: auto;
 }
 
-.cardDetails {
+.pkmnCard {
   display: flex;
+}
+
+.cardDetails {
+  padding-left: 35px;
+  max-width: 600px;
+}
+
+.name {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  font-size: 30px;
+}
+
+.details {
+  display: flex;
+  margin: 0px;
+  gap: 80px;
 }
