@@ -34,6 +34,8 @@ header {
 
 .generationTitle {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   font-size: 30px;
   font-weight: 600;
 }
@@ -68,7 +70,7 @@ header {
 }
 
 .pkmnId {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
 }
 
@@ -77,6 +79,14 @@ header {
 }
 
 /* TCG styles */
+
+.priceDesc {
+  display: block;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 14px;
+  color: rgba(0, 0, 0);
+}
 
 .cards {
   width: 200px;
@@ -99,10 +109,10 @@ header {
 
 /* Up & Down arrow from w3schools - https://www.w3schools.com/howto/howto_css_arrows.asp */
 
-.cardPrice {
+.priceInfo {
   display: flex;
   justify-content: center;
-  gap: 7px;
+  gap: 15px;
   margin-top: 7px;
 }
 
@@ -115,12 +125,12 @@ header {
 
 .up {
   transform: rotate(-135deg);
-  -webkit-transform: rotate(-135deg);
+  margin-top: 3px;
 }
 
 .down {
   transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
+  margin-bottom: 3px;
 }
 
 /* Individual Cards */

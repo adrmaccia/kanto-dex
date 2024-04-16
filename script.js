@@ -50,6 +50,18 @@ async function getPokemon() {
 
 getPokemon();
 
+// https://www.w3resource.com/javascript-exercises/javascript-math-exercise-38.php
+
+function decimalPlace(number) {
+  const result = number - Math.floor(number) !== 0;
+
+  if (result) {
+    return number;
+  } else {
+    return number.toFixed(2);
+  }
+}
+
 // List of pokemon TCG
 async function getPokemonCard(pokemonName) {
   const res = await fetch(`https://api.pokemontcg.io/v2/cards?q=name:${pokemonName} `);
@@ -58,29 +70,31 @@ async function getPokemonCard(pokemonName) {
 
   const upperCaseTitle = pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1);
 
-  generationTitle.innerHTML = `Viewing ${upperCaseTitle}'s cards`;
   pkmnContainer.innerHTML = '';
 
+  // last updated: ${card.cardmarket.updatedAt}
+
   pokemonCard.forEach((card, index) => {
-    let priceInfo;
+    generationTitle.innerHTML = `Viewing ${upperCaseTitle}'s cards <span class="priceDesc">Price displayed is based on average sell price.</span>`;
+
+    let cardPrice;
 
     if (card.cardmarket === undefined) {
-      priceInfo = 'Unknown';
+      cardPrice = 'Unknown';
     } else {
-      const avgPrice = card.cardmarket.prices.averageSellPrice;
-      const trendPrice = card.cardmarket.prices.trendPrice;
+      // check if the current price is higher than the expected price
+      const currentPrice = card.cardmarket.prices.averageSellPrice;
+      const expectedPrice = card.cardmarket.prices.trendPrice;
 
-      console.log(avgPrice);
+      const price = currentPrice > expectedPrice ? 'up' : 'down';
 
-      const price = trendPrice < avgPrice ? 'up' : 'down';
-
-      priceInfo = `<div><span class="arrow ${price}"></span></div>
-                   <div>${card.cardmarket.prices.trendPrice}</div>`;
+      cardPrice = `<div><span class="arrow ${price}"></span></div>
+                   <div>Price: $${decimalPlace(currentPrice)}</div>`;
 
       const cards = document.createElement('div');
       cards.className = 'cards';
       cards.innerHTML = `<img id="${index}" src="${card.images.small}">
-                       <div>${priceInfo}</div>`;
+                       <div class="priceInfo">${cardPrice}</div>`;
 
       if (price === 'down') {
         cards.querySelector('.arrow').style.borderColor = 'red';
