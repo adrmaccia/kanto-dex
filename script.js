@@ -62,35 +62,36 @@ async function getPokemonCard(pokemonName) {
   pkmnContainer.innerHTML = '';
 
   pokemonCard.forEach((card, index) => {
-    const avgPrice = card.cardmarket.prices.averageSellPrice;
-    const trendPrice = card.cardmarket.prices.trendPrice;
+    let priceInfo;
 
-    const price = trendPrice < avgPrice ? 'up' : 'down';
+    if (card.cardmarket === undefined) {
+      priceInfo = 'Unknown';
+    } else {
+      const avgPrice = card.cardmarket.prices.averageSellPrice;
+      const trendPrice = card.cardmarket.prices.trendPrice;
 
-    console.log(trendPrice, avgPrice);
+      console.log(avgPrice);
 
-    const cards = document.createElement('div');
-    cards.className = 'cards';
-    cards.innerHTML = `<img id="${index}" src="${card.images.small}">
-                       <div class="cardPrice"> 
-                       <div><span class="arrow ${price}"></span></div>
-                        ${
-                          card.cardmarket == undefined
-                            ? 'Unknown'
-                            : `<div>Best Price $${card.cardmarket.prices.lowPrice}</div>
-                       </div>`
-                        }`;
+      const price = trendPrice < avgPrice ? 'up' : 'down';
 
-    if (price === 'down') {
-      cards.querySelector('.arrow').style.borderColor = 'red';
+      priceInfo = `<div><span class="arrow ${price}"></span></div>
+                   <div>${card.cardmarket.prices.trendPrice}</div>`;
+
+      const cards = document.createElement('div');
+      cards.className = 'cards';
+      cards.innerHTML = `<img id="${index}" src="${card.images.small}">
+                       <div>${priceInfo}</div>`;
+
+      if (price === 'down') {
+        cards.querySelector('.arrow').style.borderColor = 'red';
+      }
+
+      pkmnContainer.append(cards);
+      cards.addEventListener('click', () => {
+        const cardId = pokemonTcg.data[index];
+        getCardDetails(cardId);
+      });
     }
-
-    pkmnContainer.append(cards);
-
-    cards.addEventListener('click', () => {
-      const cardId = pokemonTcg.data[index];
-      getCardDetails(cardId);
-    });
   });
 }
 
