@@ -1,8 +1,6 @@
 const body = document.querySelector('body');
 const back = document.querySelector('#back');
 
-let upperCaseName;
-
 // Pokemon Image API
 const content = document.createElement('div');
 content.className = 'content';
@@ -20,7 +18,7 @@ async function getPokemon() {
   content.append(generationTitle, pkmnContainer);
 
   let firstIndex = 1;
-  let lastIndex = 12;
+  let lastIndex = 151;
 
   while (firstIndex <= lastIndex) {
     const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${firstIndex}`);
@@ -28,7 +26,7 @@ async function getPokemon() {
     const sprite = pokemon.sprites.other['official-artwork'].front_default;
 
     // removes first letter, slice index 1 onwards
-    upperCaseName = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
+    const upperCaseName = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
 
     const pokemonId = pokemon.id < 10 ? `#00${pokemon.id}` : `#0${pokemon.id}`;
 
@@ -54,23 +52,39 @@ getPokemon();
 
 // List of pokemon TCG
 async function getPokemonCard(pokemonName) {
-  const res = await fetch(`https://api.pokemontcg.io/v2/cards?q=name:${pokemonName}`);
+  const res = await fetch(`https://api.pokemontcg.io/v2/cards?q=name:${pokemonName} `);
   const pokemonTcg = await res.json();
   const pokemonCard = pokemonTcg.data;
 
-  generationTitle.innerHTML = `Viewing ${upperCaseName}'s cards`;
+  const upperCaseTitle = pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1);
+
+  generationTitle.innerHTML = `Viewing ${upperCaseTitle}'s cards`;
   pkmnContainer.innerHTML = '';
 
   pokemonCard.forEach((card, index) => {
     const avgPrice = card.cardmarket.prices.averageSellPrice;
     const trendPrice = card.cardmarket.prices.trendPrice;
 
+    const price = trendPrice < avgPrice ? 'up' : 'down';
+
     console.log(trendPrice, avgPrice);
 
     const cards = document.createElement('div');
     cards.className = 'cards';
     cards.innerHTML = `<img id="${index}" src="${card.images.small}">
-                       <p class="bestPrice">Best Price $${card.cardmarket.prices.lowPrice}`;
+                       <div class="cardPrice"> 
+                       <div><span class="arrow ${price}"></span></div>
+                        ${
+                          card.cardmarket == undefined
+                            ? 'Unknown'
+                            : `<div>Best Price $${card.cardmarket.prices.lowPrice}</div>
+                       </div>`
+                        }`;
+
+    if (price === 'down') {
+      cards.querySelector('.arrow').style.borderColor = 'red';
+    }
+
     pkmnContainer.append(cards);
 
     cards.addEventListener('click', () => {
@@ -87,7 +101,6 @@ async function getPokemonCard(pokemonName) {
 // Individual Card
 function getCardDetails(card) {
   pkmnContainer.innerHTML = '';
-  console.log(card);
 
   const pkmnCard = document.createElement('div');
   pkmnCard.className = 'pkmnCard';
@@ -125,6 +138,7 @@ function getCardDetails(card) {
                            </div>`;
   content.append(pkmnCard);
 }
+
 // Search Pokemon Card
 const search = document.querySelector('form');
 
@@ -132,7 +146,6 @@ search.addEventListener('submit', (e) => {
   e.preventDefault();
   const searchValue = document.querySelector('input[type="text"]').value;
   getPokemonCard(searchValue);
-
   document.querySelector('input[type="text"]').value = '';
 });
 

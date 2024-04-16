@@ -97,6 +97,32 @@ header {
   font-size: 15px;
 }
 
+/* Up & Down arrow from w3schools - https://www.w3schools.com/howto/howto_css_arrows.asp */
+
+.cardPrice {
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+  margin-top: 7px;
+}
+
+.arrow {
+  border: solid rgb(0, 157, 42);
+  border-width: 0 5px 5px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
 /* Individual Cards */
 
 .card {
