@@ -5,20 +5,63 @@
 }
 
 body {
-  background-color: rgba(128, 128, 128, 0.195);
+  background-color: rgba(128, 128, 128, 0.247);
 }
 
 header {
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
-  height: 200px;
+  align-items: center;
+  gap: 5px;
+  padding-top: 15px;
+  height: 160px;
   background-color: #b22c2c;
 }
 
 .logo {
-  width: 350px;
+  width: 250px;
+}
+
+header form {
+  display: flex;
+}
+
+header form input[type='text'] {
+  height: 30px;
+  width: 600px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border: 1px solid rgb(255, 255, 255);
+}
+
+header form input[type='text']::placeholder {
+  padding-left: 5px;
+  font-size: 16px;
+  color: rgb(167, 167, 167);
+}
+
+header form button {
+  padding: 0px 10px;
+  height: 30px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border: 1px solid rgb(255, 255, 255);
+  background-color: #ffffff;
+  cursor: pointer;
+}
+
+header form button:active {
+  border-color: rgb(0, 0, 0);
+}
+
+.searchIcon {
+  font-size: 20px;
+  padding-top: 1px;
+  color: rgb(100, 100, 100);
+}
+
+header form button:hover {
+  outline: 2px solid rgb(0, 0, 0);
 }
 
 /* Pokemon Image Styles */
@@ -91,6 +134,9 @@ header {
 .cards {
   width: 200px;
   margin-bottom: 20px;
+  padding: 2px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
 .cards img {
@@ -112,8 +158,9 @@ header {
 .priceInfo {
   display: flex;
   justify-content: center;
+  font-size: 15px;
   gap: 15px;
-  margin-top: 7px;
+  margin-top: 2px;
 }
 
 .arrow {
