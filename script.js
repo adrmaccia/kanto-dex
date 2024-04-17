@@ -169,7 +169,7 @@ function getCardDetails(card) {
                                 <p>${card.flavorText !== undefined ? card.flavorText : ''}</p>
                               </div>
                            </div>`;
-  content.append(pkmnCard);
+  pkmnContainer.append(pkmnCard);
 }
 
 // Search Pokemon Card

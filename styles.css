@@ -187,7 +187,7 @@ header form button:hover {
 
 .pkmnCard {
   display: flex;
-  justify-content: center;
+
   gap: 50px;
 }
 
@@ -200,18 +200,20 @@ header form button:hover {
 }
 
 .cardHeading h1 {
-  margin-bottom: 5px;
+  margin-bottom: 8px;
 }
 
 .evolves {
-  font-style: italic;
   font-size: 14px;
 }
 
 .details {
   display: flex;
-  justify-content: space-between;
-  gap: 200px;
+  gap: 50px;
+}
+
+.productDetails {
+  width: 200px;
 }
 
 .details h4 {
@@ -238,7 +240,7 @@ header form button:hover {
   font-size: 14px;
   padding: 5px 0px;
   margin-bottom: 10px;
-  background-color: rgba(129, 129, 129, 0.3);
+  background-color: rgba(129, 129, 129, 0.1);
 }
 
 #priceValues:last-child {
