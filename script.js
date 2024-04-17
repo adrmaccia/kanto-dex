@@ -18,7 +18,7 @@ async function getPokemon() {
   content.append(generationTitle, pkmnContainer);
 
   let firstIndex = 1;
-  let lastIndex = 151;
+  let lastIndex = 10;
 
   while (firstIndex <= lastIndex) {
     const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${firstIndex}`);
@@ -75,7 +75,7 @@ async function getPokemonCard(pokemonName) {
   // last updated: ${card.cardmarket.updatedAt}
 
   pokemonCard.forEach((card, index) => {
-    generationTitle.innerHTML = `Viewing ${upperCaseTitle}'s cards <span class="priceDesc">Price displayed is based on average sell price.</span>`;
+    generationTitle.innerHTML = `Viewing ${upperCaseTitle}'s cards <span class="priceDesc">Price fluctuation is based on the average sell price.</span>`;
 
     let cardPrice;
 
@@ -109,45 +109,63 @@ async function getPokemonCard(pokemonName) {
   });
 }
 
-// back.addEventListener('click', () => {
-//   getPokemon();
-// });
-
 // Individual Card
 function getCardDetails(card) {
   pkmnContainer.innerHTML = '';
 
   const pkmnCard = document.createElement('div');
   pkmnCard.className = 'pkmnCard';
-  pkmnCard.innerHTML = `<img class="card" src=${card.images.large}>
+  pkmnCard.innerHTML = `<img class="card" src=${card.images.large} >
                            <div class="cardDetails">
-                              <p class="name">${card.name}</p>
-                              <p>${
-                                card.evolvesFrom !== undefined
-                                  ? 'Evolves from: ' + card.evolvesFrom
-                                  : ''
-                              }</p>
+                              <div class="cardHeading">
+                                <h1>${card.name} (${card.set.ptcgoCode})</h1>
+                                <p class="evolves">${
+                                  card.evolvesFrom !== undefined
+                                    ? 'Evolves from: ' + card.evolvesFrom
+                                    : ''
+                                }</p>
+                              </div>
                               <div class="details">
-                                <div class="leftContainer">
-                                  <p>Set</p>
-                                  <p>Release</p>
-                                  <p>Series</p>
-                                  <p>Artist</p>
-                                  <p>Listing Details</p>
-                                  <p>Average Sell</p>
-                                  <p>Price Trend</p>
+                                
+                                <div class="productDetails">
+                                  <h4>Product Details</h4>
+                                  <p class="detailText"><span>Set:</span> ${card.set.name}</p>
+                                  <p class="detailText"><span>Series:</span> ${card.set.series}</p>
+                                  <p class="detailText"><span>Release:</span> ${
+                                    card.set.releaseDate
+                                  }</p>
+                                  <p class="detailText"><span>Artist:</span> ${card.artist}</p>
                                 </div>
-                                <div class="rightContainer">
-                                  <p>${card.set.name}</p>
-                                  <p>${card.set.releaseDate}</p>
-                                  <p>${card.set.series}</p>
-                                  <p>${card.artist}</p>
-                                  <br>
-                                  <p>${card.cardmarket.prices.averageSellPrice}</p>
-                                  <p>${card.cardmarket.prices.trendPrice}</p>
+                                <div class="priceTable">
+                                  <h4>Listing History</h4>
+                                  <div id="priceValues">
+                                    <span>Price Trend</span><span>$${
+                                      card.cardmarket.prices.trendPrice
+                                    }</span>
+                                  </div>
+                                  <div id="priceValues">
+                                    <span>Average Sell Price</span><span>$${
+                                      card.cardmarket.prices.averageSellPrice
+                                    }</span>
+                                  </div>
+                                  <div id="priceValues">
+                                    <span>1 Day Average Price</span><span>$${
+                                      card.cardmarket.prices.avg1
+                                    }</span>
+                                    </div>
+                                  <div id="priceValues">
+                                    <span>7 Day Average Price</span><span>$${
+                                      card.cardmarket.prices.avg7
+                                    }</span>
+                                  </div>
+                                  <div id="priceValues">
+                                    <span>30 Day Average Price</span><span>$${
+                                      card.cardmarket.prices.avg30
+                                    }</span>
+                                  </div>
                                 </div>
                               </div>
-                              <div>
+                              <div class="flavorText">
                                 <p>${card.flavorText !== undefined ? card.flavorText : ''}</p>
                               </div>
                            </div>`;
@@ -164,59 +182,15 @@ search.addEventListener('submit', (e) => {
   document.querySelector('input[type="text"]').value = '';
 });
 
-// const body = document.querySelector('body');
-// const back = document.querySelector('#back');
-// const content = document.createElement('div');
-// content.className = 'content';
-// body.append(content);
+// back.addEventListener('click', () => {
+//   getPokemon();
+// });
 
-// // Individual Card
-// function getCardDetails(card) {
-//   content.innerHTML = '';
-//   console.log(card);
-
-//   const pkmnCard = document.createElement('div');
-//   pkmnCard.className = 'pkmnCard';
-//   pkmnCard.innerHTML = `<img class="card" src=${card.images.large}>
-//                            <div class="cardDetails">
-//                               <p class="name">${card.name}</p>
-//                               <p>${
-//                                 card.evolvesFrom !== undefined
-//                                   ? 'Evolves from: ' + card.evolvesFrom
-//                                   : ''
-//                               }</p>
-//                               <div class="details">
-//                                 <div class="leftContainer">
-//                                   <p>Set</p>
-//                                   <p>Release</p>
-//                                   <p>Series</p>
-//                                   <p>Artist</p>
-//                                   <p>Listing Details</p>
-//                                   <p>Average Sell</p>
-//                                   <p>Price Trend</p>
-//                                 </div>
-//                                 <div class="rightContainer">
-//                                   <p>${card.set.name}</p>
-//                                   <p>${card.set.releaseDate}</p>
-//                                   <p>${card.set.series}</p>
-//                                   <p>${card.artist}</p>
-//                                   <br>
-//                                   <p>${card.cardmarket.prices.averageSellPrice}</p>
-//                                   <p>${card.cardmarket.prices.trendPrice}</p>
-//                                 </div>
-//                               </div>
-//                               <div>
-//                                 <p>${card.flavorText !== undefined ? card.flavorText : ''}</p>
-//                               </div>
-//                            </div>`;
-//   content.append(pkmnCard);
-// }
-
-// // TEMP
 // async function tempCard() {
-//   const res = await fetch(`https://api.pokemontcg.io/v2/cards?q=name:charizard`);
+//   const res = await fetch(`https://api.pokemontcg.io/v2/cards?q=name:arbok`);
 //   const pokemonTcg = await res.json();
 //   const charizardCard = pokemonTcg.data[6];
+//   console.log(charizardCard);
 //   getCardDetails(charizardCard);
 // }
 

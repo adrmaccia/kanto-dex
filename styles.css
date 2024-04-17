@@ -1,7 +1,7 @@
 * {
   margin: 0;
   box-sizing: border-box;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 body {
@@ -80,7 +80,7 @@ header form button:hover {
   align-items: center;
   justify-content: space-between;
   font-size: 30px;
-  font-weight: 600;
+  font-weight: bold;
 }
 
 /* Grabbed grid style from chatgpt, issue aligning the last row with uneven amount of divs using flex & justify space between */
@@ -114,11 +114,11 @@ header form button:hover {
 
 .pkmnId {
   font-size: 14px;
-  font-weight: 700;
+  font-weight: bold;
 }
 
 .allSprites:hover {
-  background-color: rgba(149, 149, 149, 0.202);
+  background-color: #f0f0f0; /* light grey background color */
 }
 
 /* TCG styles */
@@ -126,7 +126,6 @@ header form button:hover {
 .priceDesc {
   display: block;
   font-style: italic;
-  font-weight: 500;
   font-size: 14px;
   color: rgba(0, 0, 0);
 }
@@ -136,7 +135,6 @@ header form button:hover {
   margin-bottom: 20px;
   padding: 2px;
   border-radius: 10px;
-  border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
 .cards img {
@@ -183,27 +181,72 @@ header form button:hover {
 /* Individual Cards */
 
 .card {
-  width: 350px;
+  width: 280px;
   height: auto;
 }
 
 .pkmnCard {
   display: flex;
-}
-
-.cardDetails {
-  padding-left: 35px;
-  max-width: 600px;
+  justify-content: center;
+  gap: 50px;
 }
 
 .name {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 700;
   font-size: 30px;
+}
+
+.cardHeading {
+  margin-bottom: 20px;
+}
+
+.cardHeading h1 {
+  margin-bottom: 5px;
+}
+
+.evolves {
+  font-style: italic;
+  font-size: 14px;
 }
 
 .details {
   display: flex;
-  margin: 0px;
-  gap: 80px;
+  justify-content: space-between;
+  gap: 200px;
+}
+
+.details h4 {
+  margin: 10px 0px;
+}
+
+.detailText {
+  margin-bottom: 10px;
+}
+
+.productDetails span {
+  font-weight: bold;
+}
+
+.priceTable {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+#priceValues {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  padding: 5px 0px;
+  margin-bottom: 10px;
+  background-color: rgba(129, 129, 129, 0.3);
+}
+
+#priceValues:last-child {
+  border-bottom: none;
+}
+
+.flavorText {
+  font-style: italic;
+  font-size: 14px;
+  margin-top: 50px;
 }
