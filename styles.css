@@ -209,17 +209,17 @@ nav button {
   height: auto;
 }
 
-.evolves {
-  font-size: 14px;
+.evolveText {
+  margin-top: 20px; /* Adjust this value as needed */
 }
 
 .details {
   display: flex;
-  gap: 130px;
+  gap: 70px;
 }
 
 .productDetails {
-  width: 200px;
+  width: 230px;
 }
 
 .details h4 {
@@ -228,6 +228,10 @@ nav button {
 
 .detailText {
   margin-bottom: 10px;
+}
+
+.evolutions {
+  padding-top: 10px;
 }
 
 .productDetails span {
@@ -254,6 +258,7 @@ nav button {
 }
 
 .flavorText {
+  margin-top: 65px;
   font-style: italic;
   font-size: 14px;
 }

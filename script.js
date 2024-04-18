@@ -20,7 +20,7 @@ async function getPokemonSprite() {
   pkmnContainer.innerHTML = '';
 
   let firstIndex = 1;
-  let lastIndex = 14;
+  let lastIndex = 151;
 
   mainContent.append(generationTitle, pkmnContainer);
   generationTitle.innerHTML = 'Generation 1';
@@ -113,17 +113,18 @@ function getCardDetails(card) {
                           <img class="card" src=${card.images.large}>
                         </div>
                         <div class="cardDetails">
-                          <div class="cardHeading">
-                            <h1></h1>
-                            <p class="evolves">${card.evolvesFrom !== undefined ? 'Evolves from: ' + card.evolvesFrom : ''}</p>
-                          </div>
                           <div class="details">
                             <div class="productDetails">
                               <h4>Product Details</h4>
-                              <p class="detailText"><span>Set:</span> ${card.set.name}</p>
-                              <p class="detailText"><span>Series:</span> ${card.set.series}</p>
-                              <p class="detailText"><span>Release:</span> ${card.set.releaseDate}</p>
-                              <p class="detailText"><span>Artist:</span> ${card.artist}</p>
+                                <p class="detailText"><span>Set:</span> ${card.set.name}</p>
+                                <p class="detailText"><span>Series:</span> ${card.set.series}</p>
+                                <p class="detailText"><span>Release:</span> ${card.set.releaseDate}</p>
+                                <p class="detailText"><span>Artist:</span> ${card.artist}</p>
+                              <div class="evolutions">
+                                <h4>Evolutions</h4>
+                                <p class="detailText">${card.evolvesFrom !== undefined ? '<span>Evolves from:</span> ' + card.evolvesFrom : `${card.name} has no previous evolution.`}</p>
+                                <p class="detailText">${card.evolvesTo !== undefined ? '<span>Evolves to:</span> ' + card.evolvesTo : `${card.name} does not evolve further.`}</p>
+                              </div>
                             </div>
                             <div class="priceTable">
                               <h4>Listing History</h4>
