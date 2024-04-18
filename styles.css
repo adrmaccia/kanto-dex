@@ -118,6 +118,7 @@ nav button {
   padding: 15px 40px;
   border: 1px solid rgba(0, 0, 0, 0.5);
   border-radius: 10px;
+  cursor: pointer;
 }
 
 .spriteInfo {
@@ -153,6 +154,7 @@ nav button {
   margin-bottom: 20px;
   padding: 2px;
   border-radius: 10px;
+  cursor: pointer;
 }
 
 .cards img {
