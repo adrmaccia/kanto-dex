@@ -16,12 +16,14 @@ Kanto Dex
 
 This website allows users to search for TCG cards related to the first 151 pokemon, this can either be done from selecting a pokemon from the list or searching a particular name.
 
-Users will be able to see an overview list of current pricing related to those cards with a more comprehensive list on inspection.
+Users will be able to see an overview list of current pricing related to those cards with more comprehensive information on inspection.
 
 ## Screenshot
 
 ![Homepage](readme-images/home.png)
+
 ![Card Overview](readme-images/card-overview.png)
+
 ![Card Details](readme-images/card-details.png)
 
 ## External API(s)
@@ -37,8 +39,7 @@ Issues:
 
 - Flexbox may cause column spacing of sprites or cards to be uneven
 - While limiting pokemon displayed to 151, users can search for pokemon outside the 151 range
-- Some pokemon cards may show no evolutions despite other related cards of the same pokemon showing they do
-- Pokemon may also show inaccurate evolutions
+- Pokemon may also show inaccurate or no evolutions
 - Content may overflow when browser is made smaller
 - Card pricing may not show correct decimal placing (e.g. 0.5 instead of 0.05)
 

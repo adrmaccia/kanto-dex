@@ -30,8 +30,6 @@ async function getPokemonSprite() {
     const pokemon = await res.json();
     const sprite = pokemon.sprites.other['official-artwork'].front_default;
 
-    // console.log(pokemon.sprites.versions['generation-v']['black-white'].animated.front_default);
-
     const pokemonId = pokemon.id < 10 ? `#00${pokemon.id}` : `#0${pokemon.id}`;
 
     const allSprites = document.createElement('div');
