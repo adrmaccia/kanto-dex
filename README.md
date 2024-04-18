@@ -42,6 +42,7 @@ Issues:
 - Pokemon may also show inaccurate or no evolutions
 - Content may overflow when browser is made smaller
 - Card pricing may not show correct decimal placing (e.g. 0.5 instead of 0.05)
+- Unexpected loading behaviour when navigating too quickly
 
 ## Future Features
 
