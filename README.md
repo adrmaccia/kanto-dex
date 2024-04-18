@@ -46,6 +46,7 @@ Issues:
 
 ## Future Features
 
+- Improve navigation menus
 - Filters to display pokemon by specific type
 - Search bar allowing type as a results (e.g. 'Fire Pokemon')
 - A legend to clarify how pricing is determined on the TCG overview page
