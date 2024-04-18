@@ -80,7 +80,7 @@ async function getPokemonCardList(pokemonName) {
       const price = currentPrice > expectedPrice ? 'up' : 'down';
 
       let cardPrice = `<div><span class="arrow ${price}"></span></div>
-                       <div>Price: $${decimalPlace(currentPrice)}</div>`;
+                       <div>Price: $${currentPrice}</div>`;
 
       const cards = document.createElement('div');
       cards.className = 'cards';
@@ -180,14 +180,3 @@ logo.addEventListener('click', () => {
 home.addEventListener('click', () => {
   getPokemonSprite();
 });
-
-// https://www.w3resource.com/javascript-exercises/javascript-math-exercise-38.php
-function decimalPlace(number) {
-  const result = number - Math.floor(number) !== 0;
-
-  if (result) {
-    return number;
-  } else {
-    return number.toFixed(2);
-  }
-}
