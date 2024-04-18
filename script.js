@@ -59,9 +59,14 @@ function onSpriteClick(pokemon) {
 
 // List of pokemon TCG
 async function getPokemonCardList(pokemonName) {
-  const res = await fetch(`${pokemonTcgList}${pokemonName} `);
+  const res = await fetch(`${pokemonTcgList}${pokemonName}`);
   const pokemonTcg = await res.json();
   const pokemonCardList = pokemonTcg.data;
+
+  if (pokemonCardList.length === 0) {
+    alert('That is not a valid Pokemon!');
+    return;
+  }
 
   pkmnContainer.innerHTML = '';
 
@@ -158,6 +163,9 @@ const search = document.querySelector('form');
 search.addEventListener('submit', (e) => {
   e.preventDefault();
   const searchValue = document.querySelector('input[type="text"]').value;
+  if (searchValue == '') {
+    alert(`This field can't be empty.`);
+  }
   getPokemonCardList(searchValue);
   document.querySelector('input[type="text"]').value = '';
 });
